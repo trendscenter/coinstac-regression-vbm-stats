@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "name": "Regression_vbm_stats",
+    "id": "Regression_vbm_stats",
+    "version": "v1.0.0",
+    "repository": "https:\/\/github.com\/trendscenter\/coinstac-regression-vbm-stats",
+    "description": "Decentralized Regression for quantities, average, median, and average of lower and upper quartile for ROI from nifti files"
+  },
+  "computation": {
+    "type": "docker",
+    "dockerImage": "regression-vbm-stats",
+    "command": [
+      "python",
+      "\/computation\/scripts\/local.py"
+    ],
+    "remote": {
+      "type": "docker",
+      "dockerImage": "regression-vbm-stats",
+      "command": [
+        "python",
+        "\/computation\/scripts\/remote.py"
+      ]
+    },
+    "input": {
+      "lambda":
+      {
+        "defaultValue": 0,
+        "label": "Lambda",
+        "max": 1,
+        "min": 0,
+        "step": 0.05,
+        "type": "number",
+        "source": "owner"
+      },
+      "covariates":
+      {
+        "label": "Covariates",
+        "type": "array",
+        "items": ["boolean", "number", "string"]
+      },
+      "data": {
+        "label": "responses",
+        "type": "array",
+        "items": ["nifti"],
+        "extensions": [["txt"]]
+      }
+    },
+    "output": {
+      "regressions": {
+        "label": "Regressions",
+        "type": "array",
+        "items": {
+          "global_stats": {
+            "label": "Global Stats",
+            "type": "object",
+            "items": {
+              "rsquared": {
+                "label": "R Squared",
+                "type": "number"
+              },
+              "mse": {
+                "label": "MSE",
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
