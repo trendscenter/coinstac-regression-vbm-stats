@@ -16,7 +16,7 @@ import json
 def regression_ols(X, y):
     """calculate regression for X and y and return R^2 and MSE values as a dataframe"""
     X = sm.add_constant(X) # adding a constant
-    model = sm.OLS(y, X).fit()
+    model = sm.OLS(y.astype(float), X.astype(float)).fit()
     return model.rsquared, model.mse_total
 
 def calculate_regression(covariates_df, quantity_df, quantity_name):

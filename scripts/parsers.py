@@ -33,7 +33,7 @@ def apply_mask(mask, nifti_img):
 def parse_nifti(args, files):
     """read nifiti images, apply the mask and return the quntities for ROIs"""
     try:
-        mask_file = nib.load(os.path.join(args["state"]["baseDirectory"],'aal_1.5.nii'))
+        mask_file = nib.load(os.path.join('/computation', 'local_data', 'aal_1.5.nii'))
         mask_data = np.asarray(mask_file.dataobj)
     except FileNotFoundError:
         raise Exception("Missing mask at " + args["state"]["clientId"])
